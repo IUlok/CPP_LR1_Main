@@ -17,6 +17,38 @@ float func(float x) { // Функция счёта выражения
   }
 }
 
+void format() {
+  int point;
+  int format, otstup;
+  char symb;
+  cout << "Выбери тип отображения ответов:\n1\tБез форматирования\n2\tНаучный\n3\tС отступом\nНомер:\t";
+  cin >> point;
+  switch(point) {
+    case 1:
+      format=1;
+      break;
+    case 2:
+      format=2;
+      break;
+    case 3:
+      cout << "Введи через пробел сначала величину отступа, а затем символ, которым его заполнять:\nВвод:\t";
+      cin >> otstup >> symb;
+      break;
+    default:
+      cout << "Такого формата нет!\n";
+  }
+  if (format=2) {
+    cout.setf(ios::scientific);
+  }
+  if (format=3) {
+    cout.width(otstup);
+    cout.fill(symb);
+  }
+  else {
+    cout.setf(ios::showpos);
+  }
+}
+
 int main() {
   setlocale(LC_ALL, "ru"); // Для использования русского алфавита
   float x, x1, x2;
@@ -35,6 +67,7 @@ while (a) {
         cout << "Введите значение x:\nx = ";
         cin >> x;
         y = func(x);
+        format();
         cout << "Значение функции f(x): " << y << "\nЭкран очистится через 5 секунд..." << endl;;
         sleep(5); // Задержка 5 секунд перед началом новой итерации и очистки экрана
         break;
