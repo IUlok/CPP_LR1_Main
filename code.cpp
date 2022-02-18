@@ -17,35 +17,20 @@ float func(float x) { // Функция счёта выражения
   }
 }
 
-void format() {
-  int point;
-  int format, otstup;
-  char symb;
-  cout << "Выбери тип отображения ответов:\n1\tБез форматирования\n2\tНаучный\n3\tС отступом\nНомер:\t";
-  cin >> point;
-  switch(point) {
+void format() { // Функция для форматирования вывода
+  int format;
+  cout << "Выбери тип отображения ответов:\n1\tБез форматирования (В начале знак)\n2\tНаучный\nНомер:\t";
+  cin >> format;
+  switch(format) {
     case 1:
-      format=1;
+      cout.setf(ios::showpos);
       break;
     case 2:
-      format=2;
-      break;
-    case 3:
-      cout << "Введи через пробел сначала величину отступа, а затем символ, которым его заполнять:\nВвод:\t";
-      cin >> otstup >> symb;
+      cout.setf(ios::scientific);
       break;
     default:
       cout << "Такого формата нет!\n";
-  }
-  if (format=2) {
-    cout.setf(ios::scientific);
-  }
-  if (format=3) {
-    cout.width(otstup);
-    cout.fill(symb);
-  }
-  else {
-    cout.setf(ios::showpos);
+      break;
   }
 }
 
@@ -78,6 +63,7 @@ while (a) {
         cout << "Введите значение x2:\nx2 = ";
         cin >> x2;
         y = max(func(x1), func(x2));
+        format();
         cout << "Наибольшее значение функции f(x): " << y << "\nЭкран очистится через 5 секунд..." << endl;
         sleep(5); // Задержка 5 секунд перед началом новой итерации и очистки экрана
         break;
@@ -89,6 +75,7 @@ while (a) {
         cin >> x2;
         cout << "Введите величину шага d:\nd = ";
         cin >> d;
+        format();
         for (float i = x1; i <= (x2+0.000001); i+=d) { // 0.000001 - маленькое число для устранения погрешности в шаге
           y = func(i);
           cout << "Значение y для f(" << i << ") = " << y << endl;
